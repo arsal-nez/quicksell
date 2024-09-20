@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { TiThList } from "react-icons/ti";
 import "./NavBar.css";
 import { useRecoilState } from 'recoil';
@@ -8,14 +8,35 @@ const NavBar = () => {
 	const [displayOnClick, setDisplayOnClick] = useState(false);
 	const [group, setGroup] = useRecoilState(groupState);
 	const [orderValue, setOrderValue] = useRecoilState(orderValueState);
+	const dropdownRef = useRef(null); // Ref for dropdown menu
 
 	const getGroup = () => localStorage.getItem("group") || "status";
 	const getOrder = () => localStorage.getItem("order") || "priority";
 
+	// Effect to load initial group and order values
 	useEffect(() => {
 		setGroup(getGroup());
 		setOrderValue(getOrder());
 	}, [setGroup, setOrderValue]);
+
+	// Handle clicks outside the dropdown to close it
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+				setDisplayOnClick(false);
+			}
+		};
+
+		// Add event listener when dropdown is open
+		if (displayOnClick) {
+			document.addEventListener("mousedown", handleClickOutside);
+		}
+
+		// Cleanup the event listener when dropdown is closed
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, [displayOnClick]);
 
 	const handleGroupValue = (e, isGroup) => {
 		const value = e.target.value;
@@ -39,9 +60,9 @@ const NavBar = () => {
 					<TiThList /> Display
 				</button>
 				{displayOnClick && (
-					<div className="dropOnClick flex-gap-10 p-10">
+					<div className="dropOnClick flex-gap-10 p-10" ref={dropdownRef}>
 						<div className="selectGroup flex-sb">
-							<span style={{ fontSize: "14px", color: "#555B5A" }}>Grouping</span>
+							<span style={{ fontSize: "14px", color: "#555B5A", paddingRight: "8px" }}>Grouping</span>
 							<select
 								value={group}
 								onChange={(e) => handleGroupValue(e, true)}
@@ -55,7 +76,7 @@ const NavBar = () => {
 							</select>
 						</div>
 						<div className="selectGroup flex-sb">
-							<span style={{ fontSize: "14px", color: "#555B5A" }}>Ordering</span>
+							<span style={{ fontSize: "14px", color: "#555B5A", paddingRight: "8px" }}>Ordering</span>
 							<select
 								value={orderValue}
 								onChange={(e) => handleGroupValue(e, false)}

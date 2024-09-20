@@ -1,52 +1,75 @@
-.cardContainer {
+:root {
+    --card-border-color: #d6d5d5;
+    --card-bg-color: #ffffff;
+    --card-text-color: #000000;
+    --card-shadow-color: #f4f5f8;
+    --tag-border-color: #f4f5f8;
+    --tag-text-color: #7d7d7d;
+    --status-color: #22ff01;
+    --border-radius-small: 5px;
+    --border-radius-large: 10px;
+    --font-size-small: 12px;
+    --font-size-medium: 13px;
+    --spacing-small: 5px;
+    --spacing-medium: 10px;
+  }
+  
+  .cardContainer {
     width: 100%;
-    border: 1px solid rgb(214, 213, 213);
-    color: #000000;
-    font-style: bold;
-    border-radius: 10px;
-    background: white;
-    font-size: 13px;
-    padding: 2%;
-    /* Adjusted padding for smaller screens */
-    box-shadow: #f4f5f8;
-}
-
-.cardContainer>* {
-    font-size: 12px;
+    border: 1px solid var(--card-border-color);
+    color: var(--card-text-color);
+    font-weight: bold;
+    border-radius: var(--border-radius-large);
+    background: var(--card-bg-color);
+    font-size: var(--font-size-medium);
+    padding: var(--spacing-medium);
+    box-shadow: 0 2px 4px var(--card-shadow-color);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .cardContainer:hover {
+    box-shadow: 0 4px 8px var(--card-shadow-color);
+  }
+  
+  .cardContainer > * {
+    font-size: var(--font-size-small);
     width: 100%;
-}
-
-.showStatus {
+  }
+  
+  .showStatus {
     position: absolute;
     right: 0;
-    background: rgb(34, 255, 1);
-    border-radius: 50%;
     bottom: 0;
     width: 10px;
     height: 10px;
-}
-
-.tags {
-    width: max-content;
-    font-size: 12px;
-    border-radius: 5px;
-    border: 1px solid #f4f5f8;
-    color: #7d7d7d;
-    padding: 2px 2px;
-}
-
-.cardTags {
-    align-items: center;
-    font-size: smaller;
+    background: var(--status-color);
+    border-radius: 50%;
+  }
+  
+  .tags {
+    display: inline-block;
+    font-size: var(--font-size-small);
+    border-radius: var(--border-radius-small);
+    border: 1px solid var(--tag-border-color);
+    color: var(--tag-text-color);
+    padding: 2px 6px;
+    margin: 2px;
+  }
+  
+  .cardTags {
     display: flex;
-    gap: 5px;
+    align-items: center;
     flex-wrap: wrap;
-    /* Allow tags to wrap to the next line on smaller screens */
-}
-
-@media only screen and (max-width: 600px) {
+    gap: var(--spacing-small);
+    margin-top: var(--spacing-small);
+  }
+  
+  @media only screen and (max-width: 600px) {
     .cardContainer {
-        padding: 5%;
-        /* Adjusted padding for larger screens */
+      padding: var(--spacing-medium);
     }
-}
+    
+    .cardTags {
+      gap: 3px;
+    }
+  }

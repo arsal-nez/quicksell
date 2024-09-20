@@ -1,4 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+:root {
+  --primary-color: #333;
+  --secondary-color: rgb(91, 91, 91);
+  --padding-small: 5px;
+  --padding-medium: 10px;
+  --padding-large: 20px;
+}
 
 * {
   margin: 0;
@@ -7,16 +15,22 @@
   font-family: 'Poppins', sans-serif;
 }
 
+body {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--primary-color);
+}
+
 .p-10 {
-  padding: 5px 10px;
+  padding: var(--padding-small) var(--padding-medium);
 }
 
 .f-16 {
-  font-size: 15px;
+  font-size: 1rem;
 }
 
 .color-grey {
-  color: rgb(91, 91, 91);
+  color: var(--secondary-color);
 }
 
 .flex-sb {
@@ -30,7 +44,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--padding-medium);
 }
 
 .relative {
@@ -38,8 +52,21 @@
 }
 
 @media only screen and (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
   .flex-gap-10 {
-    padding: 0 10px;
-    /* Adjust padding for smaller screens */
+    padding: 0 var(--padding-medium);
+  }
+
+  .p-10 {
+    padding: var(--padding-small) var(--padding-small);
+  }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .flex-gap-10 {
+    padding: 0 var(--padding-large);
   }
 }
